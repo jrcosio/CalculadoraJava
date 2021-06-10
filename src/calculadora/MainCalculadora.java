@@ -5,6 +5,8 @@
  */
 package calculadora;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author jrblanco
@@ -60,7 +62,6 @@ public class MainCalculadora extends javax.swing.JFrame {
         txtOperación.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         txtOperación.setForeground(new java.awt.Color(204, 204, 204));
         txtOperación.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        txtOperación.setText("Operación");
 
         txtResultado.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
         txtResultado.setForeground(new java.awt.Color(255, 255, 255));
@@ -118,24 +119,44 @@ public class MainCalculadora extends javax.swing.JFrame {
         btnDividir.setForeground(new java.awt.Color(255, 255, 255));
         btnDividir.setText("/");
         btnDividir.setFocusPainted(false);
+        btnDividir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btnMultiplicar.setBackground(new java.awt.Color(255, 151, 0));
         btnMultiplicar.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
         btnMultiplicar.setForeground(new java.awt.Color(255, 255, 255));
         btnMultiplicar.setText("*");
         btnMultiplicar.setFocusPainted(false);
+        btnMultiplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btnRestar.setBackground(new java.awt.Color(255, 151, 0));
         btnRestar.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
         btnRestar.setForeground(new java.awt.Color(255, 255, 255));
         btnRestar.setText("-");
         btnRestar.setFocusPainted(false);
+        btnRestar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btnSumar.setBackground(new java.awt.Color(255, 151, 0));
         btnSumar.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
         btnSumar.setForeground(new java.awt.Color(255, 255, 255));
         btnSumar.setText("+");
         btnSumar.setFocusPainted(false);
+        btnSumar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btnIgual.setBackground(new java.awt.Color(0, 255, 153));
         btnIgual.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
@@ -153,54 +174,99 @@ public class MainCalculadora extends javax.swing.JFrame {
         btn7.setForeground(new java.awt.Color(255, 255, 255));
         btn7.setText("7");
         btn7.setFocusPainted(false);
+        btn7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btn8.setBackground(new java.awt.Color(73, 74, 78));
         btn8.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
         btn8.setForeground(new java.awt.Color(255, 255, 255));
         btn8.setText("8");
         btn8.setFocusPainted(false);
+        btn8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btn9.setBackground(new java.awt.Color(73, 74, 78));
         btn9.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
         btn9.setForeground(new java.awt.Color(255, 255, 255));
         btn9.setText("9");
         btn9.setFocusPainted(false);
+        btn9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btn4.setBackground(new java.awt.Color(73, 74, 78));
         btn4.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
         btn4.setForeground(new java.awt.Color(255, 255, 255));
         btn4.setText("4");
         btn4.setFocusPainted(false);
+        btn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btn5.setBackground(new java.awt.Color(73, 74, 78));
         btn5.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
         btn5.setForeground(new java.awt.Color(255, 255, 255));
         btn5.setText("5");
         btn5.setFocusPainted(false);
+        btn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btn6.setBackground(new java.awt.Color(73, 74, 78));
         btn6.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
         btn6.setForeground(new java.awt.Color(255, 255, 255));
         btn6.setText("6");
         btn6.setFocusPainted(false);
+        btn6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btn3.setBackground(new java.awt.Color(73, 74, 78));
         btn3.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
         btn3.setForeground(new java.awt.Color(255, 255, 255));
         btn3.setText("3");
         btn3.setFocusPainted(false);
+        btn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btn2.setBackground(new java.awt.Color(73, 74, 78));
         btn2.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
         btn2.setForeground(new java.awt.Color(255, 255, 255));
         btn2.setText("2");
         btn2.setFocusPainted(false);
+        btn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btn1.setBackground(new java.awt.Color(73, 74, 78));
         btn1.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
         btn1.setForeground(new java.awt.Color(255, 255, 255));
         btn1.setText("1");
         btn1.setFocusPainted(false);
+        btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btnPunto.setBackground(new java.awt.Color(73, 74, 78));
         btnPunto.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
@@ -213,6 +279,11 @@ public class MainCalculadora extends javax.swing.JFrame {
         btn0.setForeground(new java.awt.Color(255, 255, 255));
         btn0.setText("0");
         btn0.setFocusPainted(false);
+        btn0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -326,6 +397,21 @@ public class MainCalculadora extends javax.swing.JFrame {
     private void btnIgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIgualActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIgualActionPerformed
+
+    private void onBotonNumero(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBotonNumero
+        JButton btn = (JButton) evt.getSource();
+        String ope = txtOperación.getText();
+        
+        if ((ope.equals("")) || (ope.equals("0"))) {
+            txtOperación.setText(btn.getText());
+            System.out.println("Estoy en el IF '' or 0");
+        }else {
+            txtOperación.setText(txtOperación.getText() + btn.getText());
+            System.out.println("Estoy en el ELSE");
+        }
+        
+        
+    }//GEN-LAST:event_onBotonNumero
 
     /**
      * @param args the command line arguments
