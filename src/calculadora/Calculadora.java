@@ -18,6 +18,7 @@ public class Calculadora {
         
         MainCalculadora ventana = new MainCalculadora();
         ventana.setVisible(true);
+        ventana.setLocationRelativeTo(null);
         ventana.setTitle("Calculadora v1.0");
     }
     

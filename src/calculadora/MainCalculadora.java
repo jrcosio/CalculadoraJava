@@ -5,6 +5,11 @@
  */
 package calculadora;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.swing.JButton;
 
 /**
@@ -119,24 +124,44 @@ public class MainCalculadora extends javax.swing.JFrame {
         btnDividir.setForeground(new java.awt.Color(255, 255, 255));
         btnDividir.setText("/");
         btnDividir.setFocusPainted(false);
+        btnDividir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonOperacion(evt);
+            }
+        });
 
         btnMultiplicar.setBackground(new java.awt.Color(255, 151, 0));
         btnMultiplicar.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
         btnMultiplicar.setForeground(new java.awt.Color(255, 255, 255));
         btnMultiplicar.setText("*");
         btnMultiplicar.setFocusPainted(false);
+        btnMultiplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonOperacion(evt);
+            }
+        });
 
         btnRestar.setBackground(new java.awt.Color(255, 151, 0));
         btnRestar.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
         btnRestar.setForeground(new java.awt.Color(255, 255, 255));
         btnRestar.setText("-");
         btnRestar.setFocusPainted(false);
+        btnRestar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonOperacion(evt);
+            }
+        });
 
         btnSumar.setBackground(new java.awt.Color(255, 151, 0));
         btnSumar.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
         btnSumar.setForeground(new java.awt.Color(255, 255, 255));
         btnSumar.setText("+");
         btnSumar.setFocusPainted(false);
+        btnSumar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonOperacion(evt);
+            }
+        });
 
         btnIgual.setBackground(new java.awt.Color(0, 255, 153));
         btnIgual.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
@@ -378,7 +403,19 @@ public class MainCalculadora extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnIgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIgualActionPerformed
-        // TODO add your handling code here:
+        
+        
+        try {
+            String resultado = se.eval(txtOperación.getText() + txtResultado.getText()).toString();
+            txtResultado.setText(resultado);
+            txtOperación.setText("");
+            estado=true;
+            
+        } catch (ScriptException ex) {
+            Logger.getLogger(MainCalculadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_btnIgualActionPerformed
 
     private void onBotonNumero(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBotonNumero
@@ -392,17 +429,31 @@ public class MainCalculadora extends javax.swing.JFrame {
                 txtResultado.setText(btn.getText());
             }
         }else {
+            if (estado){
+               txtResultado.setText(btn.getText());
+               estado = false;
+            }else if (!(btn.getText().equals(".") && ope.contains("."))) { 
+                txtResultado.setText(txtResultado.getText() + btn.getText());
+            }
             /*
                 Explicación del siguiente IF
                     La expresión logica es para si se ha pulsado el boton PUNTO y ya contiene un punto
                     y lo invertimos con la negación ! para que escriba todo menos otro punto si este 
                     ya existiera.
             */
-            if (!(btn.getText().equals(".") && ope.contains("."))) { 
-                txtResultado.setText(txtResultado.getText() + btn.getText());
-            }
+            
         }      
     }//GEN-LAST:event_onBotonNumero
+
+    private void onBotonOperacion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBotonOperacion
+        JButton btn = (JButton) evt.getSource();
+        String temp = txtOperación.getText() + txtResultado.getText() + " " + btn.getText() + " ";
+        txtOperación.setText(temp);
+        
+        
+        txtResultado.setText("0");
+        estado = false;
+    }//GEN-LAST:event_onBotonOperacion
 
     /**
      * @param args the command line arguments
@@ -438,9 +489,12 @@ public class MainCalculadora extends javax.swing.JFrame {
             }
         });
     }
-
     
-    
+    ScriptEngineManager sem = new ScriptEngineManager();
+    ScriptEngine se = sem.getEngineByName("JavaScript");
+   
+    boolean estado = false;
+            
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn0;
     private javax.swing.JButton btn1;
