@@ -11,6 +11,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -72,6 +73,7 @@ public class MainCalculadora extends javax.swing.JFrame {
         txtResultado.setForeground(new java.awt.Color(255, 255, 255));
         txtResultado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtResultado.setText("0");
+        txtResultado.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,7 +82,7 @@ public class MainCalculadora extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtResultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtOperación, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -110,8 +112,13 @@ public class MainCalculadora extends javax.swing.JFrame {
         btnBorrarUltimo.setBackground(new java.awt.Color(46, 45, 50));
         btnBorrarUltimo.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
         btnBorrarUltimo.setForeground(new java.awt.Color(255, 255, 255));
-        btnBorrarUltimo.setText("<<");
+        btnBorrarUltimo.setText("<");
         btnBorrarUltimo.setFocusPainted(false);
+        btnBorrarUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarUltimoActionPerformed(evt);
+            }
+        });
 
         btnPorcentaje.setBackground(new java.awt.Color(46, 45, 50));
         btnPorcentaje.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
@@ -401,15 +408,23 @@ public class MainCalculadora extends javax.swing.JFrame {
         txtOperación.setText("");
         txtResultado.setText("0");
     }//GEN-LAST:event_btnBorrarActionPerformed
-
+    /*
+        Método del igual, cuando el usuario pulsa igual realiza las operaciones.
+    */
     private void btnIgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIgualActionPerformed
-        
-        
+
         try {
             String resultado = se.eval(txtOperación.getText() + txtResultado.getText()).toString();
-            txtResultado.setText(resultado);
+            if (resultado.equals("Infinity")) {
+                JOptionPane.showMessageDialog(this,"La Operación no se puede realizar, resultado indeterminado", "ERROR",  JOptionPane.WARNING_MESSAGE);
+                txtResultado.setText("0");
+                estado = false;
+            }else {
+                txtResultado.setText(resultado);
+                estado=true;
+            }
             txtOperación.setText("");
-            estado=true;
+            
             
         } catch (ScriptException ex) {
             Logger.getLogger(MainCalculadora.class.getName()).log(Level.SEVERE, null, ex);
@@ -417,12 +432,15 @@ public class MainCalculadora extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnIgualActionPerformed
-
+    /*
+        Método de los botones de los numeros, va añadiendo los numeros en el label resultado.
+    
+    */
     private void onBotonNumero(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBotonNumero
         JButton btn = (JButton) evt.getSource();
         String ope = txtResultado.getText();
         
-        if (ope.equals("0")) {
+        if (ope.equals("0") || estado) {
             if (btn.getText().equals(".")) {
                 txtResultado.setText("0.");
             }else {
@@ -431,7 +449,7 @@ public class MainCalculadora extends javax.swing.JFrame {
         }else {
             if (estado){
                txtResultado.setText(btn.getText());
-               estado = false;
+               
             }else if (!(btn.getText().equals(".") && ope.contains("."))) { 
                 txtResultado.setText(txtResultado.getText() + btn.getText());
             }
@@ -443,53 +461,40 @@ public class MainCalculadora extends javax.swing.JFrame {
             */
             
         }      
+        estado = false;
     }//GEN-LAST:event_onBotonNumero
-
+    /*
+        Método que se lanza al pulsar en cualquiera de los botones de las operaciones.
+        Los que viene hacer es en el label superior mete lo que este en el label resultado
+        y el simbolo de la operación.
+    */
     private void onBotonOperacion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBotonOperacion
         JButton btn = (JButton) evt.getSource();
         String temp = txtOperación.getText() + txtResultado.getText() + " " + btn.getText() + " ";
         txtOperación.setText(temp);
         
-        
         txtResultado.setText("0");
         estado = false;
     }//GEN-LAST:event_onBotonOperacion
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    /*
+        Método del boton borrar el último digito introducido.
+    */
+    private void btnBorrarUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarUltimoActionPerformed
+        String resultado = txtResultado.getText().substring(0, txtResultado.getText().length()-1);
+       
+        if (!estado) {
+            if (resultado.length()==0) {
+                txtResultado.setText("0");
+            }else{
+                txtResultado.setText(resultado);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainCalculadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainCalculadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainCalculadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainCalculadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        
+    }//GEN-LAST:event_btnBorrarUltimoActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainCalculadora().setVisible(true);
-            }
-        });
-    }
-    
+    /*
+        Para hacer las operaciones directamente desde el string.
+    */
     ScriptEngineManager sem = new ScriptEngineManager();
     ScriptEngine se = sem.getEngineByName("JavaScript");
    
