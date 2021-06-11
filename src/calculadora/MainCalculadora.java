@@ -119,44 +119,24 @@ public class MainCalculadora extends javax.swing.JFrame {
         btnDividir.setForeground(new java.awt.Color(255, 255, 255));
         btnDividir.setText("/");
         btnDividir.setFocusPainted(false);
-        btnDividir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onBotonNumero(evt);
-            }
-        });
 
         btnMultiplicar.setBackground(new java.awt.Color(255, 151, 0));
         btnMultiplicar.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
         btnMultiplicar.setForeground(new java.awt.Color(255, 255, 255));
         btnMultiplicar.setText("*");
         btnMultiplicar.setFocusPainted(false);
-        btnMultiplicar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onBotonNumero(evt);
-            }
-        });
 
         btnRestar.setBackground(new java.awt.Color(255, 151, 0));
         btnRestar.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
         btnRestar.setForeground(new java.awt.Color(255, 255, 255));
         btnRestar.setText("-");
         btnRestar.setFocusPainted(false);
-        btnRestar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onBotonNumero(evt);
-            }
-        });
 
         btnSumar.setBackground(new java.awt.Color(255, 151, 0));
         btnSumar.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
         btnSumar.setForeground(new java.awt.Color(255, 255, 255));
         btnSumar.setText("+");
         btnSumar.setFocusPainted(false);
-        btnSumar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onBotonNumero(evt);
-            }
-        });
 
         btnIgual.setBackground(new java.awt.Color(0, 255, 153));
         btnIgual.setFont(new java.awt.Font("Segoe UI", 1, 23)); // NOI18N
@@ -273,6 +253,11 @@ public class MainCalculadora extends javax.swing.JFrame {
         btnPunto.setForeground(new java.awt.Color(255, 255, 255));
         btnPunto.setText(".");
         btnPunto.setFocusPainted(false);
+        btnPunto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onBotonNumero(evt);
+            }
+        });
 
         btn0.setBackground(new java.awt.Color(73, 74, 78));
         btn0.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
@@ -355,12 +340,12 @@ public class MainCalculadora extends javax.swing.JFrame {
                     .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSumar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSumar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIgual, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -390,8 +375,6 @@ public class MainCalculadora extends javax.swing.JFrame {
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         txtOperación.setText("");
         txtResultado.setText("0");
-        if (evt.getSource()==btnBorrar)
-            System.out.println(evt.toString());
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnIgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIgualActionPerformed
@@ -400,17 +383,25 @@ public class MainCalculadora extends javax.swing.JFrame {
 
     private void onBotonNumero(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onBotonNumero
         JButton btn = (JButton) evt.getSource();
-        String ope = txtOperación.getText();
+        String ope = txtResultado.getText();
         
-        if ((ope.equals("")) || (ope.equals("0"))) {
-            txtOperación.setText(btn.getText());
-            System.out.println("Estoy en el IF '' or 0");
+        if (ope.equals("0")) {
+            if (btn.getText().equals(".")) {
+                txtResultado.setText("0.");
+            }else {
+                txtResultado.setText(btn.getText());
+            }
         }else {
-            txtOperación.setText(txtOperación.getText() + btn.getText());
-            System.out.println("Estoy en el ELSE");
-        }
-        
-        
+            /*
+                Explicación del siguiente IF
+                    La expresión logica es para si se ha pulsado el boton PUNTO y ya contiene un punto
+                    y lo invertimos con la negación ! para que escriba todo menos otro punto si este 
+                    ya existiera.
+            */
+            if (!(btn.getText().equals(".") && ope.contains("."))) { 
+                txtResultado.setText(txtResultado.getText() + btn.getText());
+            }
+        }      
     }//GEN-LAST:event_onBotonNumero
 
     /**

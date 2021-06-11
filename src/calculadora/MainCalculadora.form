@@ -187,13 +187,13 @@
                       <Component id="btn6" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnSumar" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="btn1" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
                           <Component id="btn2" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
                           <Component id="btn3" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="btnSumar" min="-2" pref="63" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -269,9 +269,6 @@
             <Property name="text" type="java.lang.String" value="/"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onBotonNumero"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnMultiplicar">
           <Properties>
@@ -287,9 +284,6 @@
             <Property name="text" type="java.lang.String" value="*"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onBotonNumero"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRestar">
           <Properties>
@@ -305,9 +299,6 @@
             <Property name="text" type="java.lang.String" value="-"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onBotonNumero"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnSumar">
           <Properties>
@@ -323,9 +314,6 @@
             <Property name="text" type="java.lang.String" value="+"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onBotonNumero"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnIgual">
           <Properties>
@@ -521,6 +509,9 @@
             <Property name="text" type="java.lang.String" value="."/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onBotonNumero"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn0">
           <Properties>
